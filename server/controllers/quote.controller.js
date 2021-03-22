@@ -22,6 +22,22 @@ module.exports.createOneQuote = (req,res)=>{
         .catch(err => res.json({errors:err }))
 }
 
+module.exports.randomQuote = (req, res) =>{
+    console.log("random")
+    Quote.find()
+        .then (allquotes => {
+            // console.log("all quotes look like this", allquotes)
+            let maxindex=allquotes.length
+            console.log(Math.random(maxindex))
+            function getRandomInt(max){
+                return Math.floor(Math.random()*Math.floor(max));
+            }
+            let randomNum = getRandomInt(maxindex)
+            console.log("random quote: ", randomNum)
+            res.json({results: allquotes[randomNum]})
+        })
+        .catch()
+}
 
 module.exports.findAQuote = (req,res)=>{
    Quote.findOne({_id: req.params.quoteid})
